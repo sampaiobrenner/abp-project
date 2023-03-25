@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abp.Project", "src\Abp.Project\Abp.Project.csproj", "{A3FA5A79-7591-43A2-A913-2C9AD52CC682}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{717BA5E7-50AB-42AB-AE9D-DBBC439594D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A3FA5A79-7591-43A2-A913-2C9AD52CC682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FA5A79-7591-43A2-A913-2C9AD52CC682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FA5A79-7591-43A2-A913-2C9AD52CC682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FA5A79-7591-43A2-A913-2C9AD52CC682}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A3FA5A79-7591-43A2-A913-2C9AD52CC682} = {717BA5E7-50AB-42AB-AE9D-DBBC439594D2}
+	EndGlobalSection
+EndGlobal

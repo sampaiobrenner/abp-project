@@ -1,0 +1,27 @@
+version: '3.5'
+
+services:
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./storage/minio:/data
+    environment:
+      MINIO_ROOT_USER: guest
+      MINIO_ROOT_PASSWORD: guest123
+    command: server --console-address ":9001" /data
+    restart: unless-stopped
+    networks:
+      - minio_networks
+
+volumes:
+  minio_storage: {}
+
+networks: 
+  minio_networks:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.2.0/24   
