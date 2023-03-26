@@ -1,4 +1,4 @@
-﻿namespace Abp.Project.Extensions;
+﻿namespace Abp.Project.Modules.Extensions;
 
 public static class ConfigurationExtensions
 {

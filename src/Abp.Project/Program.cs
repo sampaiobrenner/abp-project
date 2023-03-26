@@ -1,4 +1,4 @@
-using Abp.Project;
+using Abp.Project.Modules;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.AddAppSettingsSecretsJson().UseAutofac();

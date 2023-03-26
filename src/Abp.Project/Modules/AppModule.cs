@@ -1,19 +1,21 @@
-﻿using Abp.Project.Extensions;
+﻿using Abp.Project.Modules.Extensions;
 using Microsoft.OpenApi.Models;
 using Volo.Abp;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Autofac;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.BlobStoring.Minio;
+using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
 
-namespace Abp.Project;
+namespace Abp.Project.Modules;
 
 [DependsOn(typeof(AbpAspNetCoreMvcModule))] // Adiciona a dependência do MVC
 [DependsOn(typeof(AbpAutofacModule))] // Adiciona a dependência do AutoFac
 [DependsOn(typeof(AbpSwashbuckleModule))] // Adiciona a dependência do Swagger
 [DependsOn(typeof(AbpBlobStoringMinioModule))] // Adiciona a dependência do Minio
+[DependsOn(typeof(AbpEventBusRabbitMqModule))] // Adiciona a dependência do RabbitMQ
 public class AppModule : AbpModule
 {
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -33,8 +35,10 @@ public class AppModule : AbpModule
 
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
+        var configuration = context.Services.GetConfiguration();
+
         ConfigureSwagger(context.Services);
-        ConfigureMinio(context.Services);
+        ConfigureMinio(configuration);
     }
 
     private static void ConfigureSwagger(IServiceCollection services)
@@ -49,9 +53,8 @@ public class AppModule : AbpModule
         );
     }
     
-    private void ConfigureMinio(IServiceCollection services)
+    private void ConfigureMinio(IConfiguration configuration)
     {
-        var configuration = services.GetConfiguration();
 
         Configure<AbpBlobStoringOptions>(options =>
         {

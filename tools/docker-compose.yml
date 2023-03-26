@@ -14,14 +14,23 @@ services:
     command: server --console-address ":9001" /data
     restart: unless-stopped
     networks:
-      - minio_networks
+      - default
+        
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      - default
+    restart: unless-stopped
 
 volumes:
   minio_storage: {}
 
-networks: 
-  minio_networks:
+networks:
+  default:
     driver: bridge
     ipam:
       config:
-        - subnet: 10.0.2.0/24   
+        - subnet: 10.0.3.0/24

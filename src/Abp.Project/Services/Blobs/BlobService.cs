@@ -1,7 +1,7 @@
 ﻿using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;
 
-namespace Abp.Project.Services;
+namespace Abp.Project.Services.Blobs;
 
 public class BlobService : IBlobService, IScopedDependency
 {

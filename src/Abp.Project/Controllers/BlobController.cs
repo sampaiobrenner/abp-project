@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using Abp.Project.Services;
+using Abp.Project.Services.Blobs;
 using Microsoft.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc;
 

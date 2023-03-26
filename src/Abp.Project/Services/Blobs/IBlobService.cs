@@ -1,4 +1,4 @@
-﻿namespace Abp.Project.Services;
+﻿namespace Abp.Project.Services.Blobs;
 
 public interface IBlobService
 {
