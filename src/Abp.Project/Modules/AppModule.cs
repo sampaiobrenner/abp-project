@@ -5,6 +5,7 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.Autofac;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.BlobStoring.Minio;
+using Volo.Abp.Caching.StackExchangeRedis;
 using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
@@ -16,6 +17,7 @@ namespace Abp.Project.Modules;
 [DependsOn(typeof(AbpSwashbuckleModule))] // Adiciona a dependência do Swagger
 [DependsOn(typeof(AbpBlobStoringMinioModule))] // Adiciona a dependência do Minio
 [DependsOn(typeof(AbpEventBusRabbitMqModule))] // Adiciona a dependência do RabbitMQ
+[DependsOn(typeof(AbpCachingStackExchangeRedisModule))] // Adiciona a dependência do Redis
 public class AppModule : AbpModule
 {
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -26,6 +28,7 @@ public class AppModule : AbpModule
         if (env.IsDevelopment()) 
             app.UseDeveloperExceptionPage();
 
+        app.UseStaticFiles();
         app.UseRouting();
         app.UseUnitOfWork();
         app.UseSwagger();
@@ -46,6 +49,7 @@ public class AppModule : AbpModule
         services.AddAbpSwaggerGen(
             options =>
             {
+                options.HideAbpEndpoints();
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "Abp.Project", Version = "v1" });
                 options.DocInclusionPredicate((_, _) => true);
                 options.CustomSchemaIds(type => type.FullName);
@@ -55,7 +59,6 @@ public class AppModule : AbpModule
     
     private void ConfigureMinio(IConfiguration configuration)
     {
-
         Configure<AbpBlobStoringOptions>(options =>
         {
             options.Containers.ConfigureDefault(container =>
