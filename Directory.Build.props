@@ -1,0 +1,10 @@
+<Project>
+    <PropertyGroup Label="Сommon properties">
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    
+    <PropertyGroup Label="Packages dependency versions">
+        <AbpVersion>7.1.0</AbpVersion>
+    </PropertyGroup>
+</Project>
