@@ -15,7 +15,7 @@ services:
     restart: unless-stopped
     networks:
       - default
-        
+
   rabbitmq:
     image: rabbitmq:3-management
     ports:
@@ -24,6 +24,35 @@ services:
     networks:
       - default
     restart: unless-stopped
+  
+  redis:
+    container_name: redis
+    image: redis
+    hostname: redis
+    expose:
+      - '6379'
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: [ 'CMD', 'redis-cli', 'ping' ]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    restart: unless-stopped
+    networks:
+      - default
+  
+  redis-commander:
+    hostname: redis-commander
+    container_name: redis-commander
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - '8081:8081'
+    restart: unless-stopped
+    networks:
+      - default
 
 volumes:
   minio_storage: {}
