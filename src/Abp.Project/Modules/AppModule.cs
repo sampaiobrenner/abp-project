@@ -6,6 +6,8 @@ using Volo.Abp.Autofac;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.BlobStoring.Minio;
 using Volo.Abp.Caching.StackExchangeRedis;
+using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.PostgreSql;
 using Volo.Abp.EventBus.RabbitMq;
 using Volo.Abp.Modularity;
 using Volo.Abp.Swashbuckle;
@@ -18,6 +20,8 @@ namespace Abp.Project.Modules;
 [DependsOn(typeof(AbpBlobStoringMinioModule))] // Adiciona a dependência do Minio
 [DependsOn(typeof(AbpEventBusRabbitMqModule))] // Adiciona a dependência do RabbitMQ
 [DependsOn(typeof(AbpCachingStackExchangeRedisModule))] // Adiciona a dependência do Redis
+[DependsOn(typeof(AbpEntityFrameworkCoreModule))] // Adiciona a dependência do EF
+[DependsOn(typeof(AbpEntityFrameworkCorePostgreSqlModule))] // Adiciona a dependência do PostgreSql
 public class AppModule : AbpModule
 {
     public override void OnApplicationInitialization(ApplicationInitializationContext context)
@@ -42,6 +46,7 @@ public class AppModule : AbpModule
 
         ConfigureSwagger(context.Services);
         ConfigureMinio(configuration);
+        ConfigurePostgreSql();
     }
 
     private static void ConfigureSwagger(IServiceCollection services)
@@ -72,6 +77,14 @@ public class AppModule : AbpModule
                     minio.BucketName = configuration.GetMinioBucketName();
                 });
             });
+        });
+    }
+    
+    private void ConfigurePostgreSql()
+    {
+        Configure<AbpDbContextOptions>(options =>
+        {
+            options.UseNpgsql();
         });
     }
 }
